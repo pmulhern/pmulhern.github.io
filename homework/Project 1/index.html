@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>COVID-19</title>
+  </head>
+​
+  <body>
+    <header>
+      <h1 class="display-1" id="title">COVID-19</h1>
+    </header>
+​
+    <!-- NAV Bar -->
+   
+    <div class="navbar navbar-light bg-light">
+      <form class="form-inline">
+        <h2 class>Search for City</h2>
+        <input class="form-control mr-sm-2 ml-2" id = "citySearch" size="40" type="search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0 ml-2 searches" id = "searchBtn" type="submit">Search</button>
+        <button class="btn btn-outline-success my-2 my-sm-0 ml-4" id=clearBtn>Clear History</button>
+      </form>
+    </div>        
+                 
+    <Main class="mb-12" id ="main">
+        <Section class="row">
+            
+          <div class="col-sm-4 ml-3 ">
+  
+            <div class = "card currentWeather mt-2 bg-light">
+            <div class="current ml-2">State: <span id="state"></span> <span id="stateScore"> </span></div>    
+            <div class="current ml-2 number-separator">Population: <span id="population"></span> </div>           
+            <div class="current ml-2">Cases: <span id="cases"></span> <span id="casesPerc"></span> </div>
+            <div class="current ml-2">Deaths: <span id="deaths"></span> <span id="deathsPerc"></span> </div>
+            <div class="current ml-2">Recovered: <span id="recovered"></span> <span id="recoveredPerc"></span> </div>
+            <div class="current ml-2">Active: <span id="active"></span> <span id="activePerc"> </span> </div>
+            <div class="current ml-2">Current Hospitalizations: <span id="hospitalizations"></span> </div>
+            <div class="current ml-2">Current in ICU: <span id="icu"></span> </div>
+            <div class="current ml-2">Current On Ventilator: <span id="ventilator"></span> </div>
+            <div class="current ml-2 text = white">View Daily Trends: <a href="https://www.google.com/search?rlz=1C1CHBF_enUS832US832&ei=rE7_XsXaCKGm_Qa__JKoAQ&q=Pennsylvania+active+covid+19+cases" target="_blank"> Click here</div>
+                <!-- <div>
+                Visit the Ultimate FaceBook Fan Page: <a href="https://www.facebook.com/groups/ledzeppelinpage/" target="_blank"> Click here for the True Led Zepplin Fan Site</a>
+                </div> -->
+            </div>          
+​
+    <!-- </div> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- <script src="easy-number-separator.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="script.js"></script> 
+​
+  </body>
+</html>
