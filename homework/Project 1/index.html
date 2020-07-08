@@ -1,70 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <title>COVID-19</title>
-  </head>
-​
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>COVID-19</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
   <body>
     <header>
-      <h1 class="display-1" id="title">COVID-19</h1>
+      <h1 class="display-1" id="title">COVID-19 Travel Assistant</h1>
     </header>
 ​
     <!-- NAV Bar -->
    
-    <div class="navbar navbar-light bg-light">
-      <form class="form-inline">
-        <h2 class>Search for City</h2>
-        <input class="form-control mr-sm-2 ml-2" id = "citySearch" size="40" type="search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0 ml-2 searches" id = "searchBtn" type="submit">Search</button>
-        <button class="btn btn-outline-success my-2 my-sm-0 ml-4" id=clearBtn>Clear History</button>
+    <div class="nav-wrapper container">
+      <form>
+        <h2 class>Search for State</h2>
+        <input class="card l2 s12" id = "citySearch" size="40" type="search" required>
+        <button class="btn btn-outline-success searches" id = "searchBtn" type="submit">Search</button>
       </form>
     </div>        
                  
-    <Main class="mb-12" id ="main">
-        <Section class="row">
+    <Main class="main container" id ="main">
+      <div class="row "> 
+           <div class="col l4 s12 card-panel currentData">
+              <div class="current"><b>State: </b> <span id="state"></span> <span id="stateScore"> </span></div>    
+              <div class="current">Population: <span id="population"></span> </div>           
+              <div class="current">Total Cases: <span id="cases"></span> <span id="casesPerc"></span> </div>
+              <div class="current">Total Deaths: <span id="deaths"></span> <span id="deathsPerc"></span> </div>
+              <div class="current">Total Recovered: <span id="recovered"></span> <span id="recoveredPerc"></span> </div>
+              <div class="current">Currently Active: <span id="active"></span> <span id="activePerc"> </span> </div>
+              <div class="current">New Cases: <span id="newCases"></span> <span id="newCasesPerc"> </span> </div>
+              <div class="current">Current Hospitalizations: <span id="hospitalizations"></span> </div>
+              <div class="current">Current in ICU: <span id="icu"></span> </div>
+              <div class="current">Current On Ventilator: <span id="ventilator"></span> </div>
+              <div class="current" id="link"> </div>
+          </div>   
             
-          <div class="col-sm-4 ml-3 ">
+          <div class="col l4 s12 center-align">
+              <h4 id = "DestInd s3">Destination Indicator</h4>
+              <img class="image s3" id="indicator" src="" alt="">
+          </div>
+
+          <div class="col l4 s12 card-panel ">
+            <h5>Analysis</h5>
+            <div class="guidlines" id= "analyis">  </div>
+        </div>   
+​      </div>
+    </Main>
   
-            <div class = "card currentWeather mt-2 bg-light">
-            <div class="current ml-2">State: <span id="state"></span> <span id="stateScore"> </span></div>    
-            <div class="current ml-2 number-separator">Population: <span id="population"></span> </div>           
-            <div class="current ml-2">Cases: <span id="cases"></span> <span id="casesPerc"></span> </div>
-            <div class="current ml-2">Deaths: <span id="deaths"></span> <span id="deathsPerc"></span> </div>
-            <div class="current ml-2">Recovered: <span id="recovered"></span> <span id="recoveredPerc"></span> </div>
-            <div class="current ml-2">Active: <span id="active"></span> <span id="activePerc"> </span> </div>
-            <div class="current ml-2">Current Hospitalizations: <span id="hospitalizations"></span> </div>
-            <div class="current ml-2">Current in ICU: <span id="icu"></span> </div>
-            <div class="current ml-2">Current On Ventilator: <span id="ventilator"></span> </div>
-            <div class="current ml-2 text = white">View Daily Trends: <a href="https://www.google.com/search?rlz=1C1CHBF_enUS832US832&ei=rE7_XsXaCKGm_Qa__JKoAQ&q=Pennsylvania+active+covid+19+cases" target="_blank"> Click here</div>
-                <!-- <div>
-                Visit the Ultimate FaceBook Fan Page: <a href="https://www.facebook.com/groups/ledzeppelinpage/" target="_blank"> Click here for the True Led Zepplin Fan Site</a>
-                </div> -->
-            </div>          
-​
-    <!-- </div> -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <!-- <script src="easy-number-separator.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="script.js"></script> 
-​
+  <footer class="page-footer teal container" id="footer">
+    <div class="footer">
+      
+      <div class="row">
+        <div class="col l6 s12">
+          <h2 class="white-text ">Related Top State News</h2>
+        </div>
+      </div>
+
+      <div class="row hide">
+        
+        <!-- News Article 1 -->
+         <h5 class="col l8 s12 white-text " id="headline0"> </h5>
+         <div class="col l3 s12 white-text" id="div0"> <img class="image" id="image0" src="" alt="No Image" width="150" height="100"> </div>         
+         
+        <!-- News Article 2 -->
+        <h5 class="col l8 s12 white-text " id="headline1"> </h5>
+        <div class="col l3 s12 white-text" id="div1"> <img class="image" id="image1" src="" alt="No Image" width="150" height="100"> </div>         
+        
+        <!-- News Article 3 -->
+        <h5 class="col l8 s12 white-text " id="headline2"> </h5>
+        <div class="col l3 s12 white-text" id="div2"> <img class="image" id="image2" src="" alt="No Image" width="150" height="100"> </div>         
+        
+        <!-- News Article 4 -->
+        <h5 class="col l8 s12 white-text " id="headline3"> </h5>
+        <div class="col l3 s12 white-text" id="div3"> <img class="image" id="image3" src="" alt="No Image" width="150" height="100"> </div>         
+        
+        <!-- News Article 5 -->
+        <h5 class="col l8 s12 white-text " id="headline4"> </h5>
+        <div class="col l3 s12 white-text" id="div4"> <img class="image" id="image4" src="" alt="No Image" width="150" height="100"> </div>         
+        
+        <!-- News Article 6 -->
+        <h5 class="col l8 s12 white-text " id="headline5"> </h5>
+        <div class="col l3 s12 white-text" id="div5"> <img class="image" id="image5" src="" alt="No Image" width="150" height="100"> </div>         
+        
+        <!-- News Article 7 -->
+        <h5 class="col l8 s12 white-text " id="headline6"> </h5>
+        <div class="col l3 s12 white-text" id="div6"> <img class="image" id="image6" src="" alt="No Image" width="150" height="100"> </div>         
+        
+        <!-- News Article 8 -->
+        <h5 class="col l8 s12 white-text " id="headline7"> </h5>
+        <div class="col l3 s12 white-text" id="div7"> <img class="image" id="image7" src="" alt="No Image" width="150" height="100"> </div>         
+        
+        <!-- News Article 9 -->
+        <h5 class="col l8 s12 white-text " id="headline8"> </h5>
+        <div class="col l3 s12 white-text" id="div8"> <img class="image" id="image8" src="" alt="No Image" width="150" height="100"> </div>         
+        
+        <!-- News Article 10 -->
+        <h5 class="col l8 s12 white-text " id="headline9"> </h5>
+        <div class="col l3 s12 white-text" id="div9"> <img class="image" id="image9" src="" alt="No Image" width="150" height="100"> </div>         
+        
+      
+      <!-- end row -->
+    </div>
+
+
+
+          <!-- <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p> -->
+
+
+        <!-- </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Settings</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+      </div> -->
+    </div>
+    
+    
+    <!-- <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div> -->
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <!-- <script src="easy-number-separator.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="script.js"></script> 
+
   </body>
 </html>

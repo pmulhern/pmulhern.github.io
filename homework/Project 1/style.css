@@ -9,10 +9,10 @@ body {
       text-align: center;
       color: white;
   }
-
+/* 
   .searchArea {
       margin-left: 20px;
-  }
+  } */
 
   #searchHistory{
       margin-left: auto;
@@ -50,23 +50,6 @@ body {
     color: white;
   }
 
-.low {
-    background-color: green;
-}
-
-
-.moderate{
-    background-color: yellow;
-}
-
-.high{
-    background-color: orange;
-}
-
-.severe{
-    background-color: red;
-}
-
 #clearBtn {
     float: right;
 }
@@ -84,19 +67,12 @@ body {
     display: inline-block;    
 }
 
-/* #searchTitle{
-    text-align: left;
-    font-size: large;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    width: 200px;
-    height: 50px;
+#DestInd {
     text-align: center;
-} */
+}
 
-/* #population {
-
-} */
-
+#indicator {
+    margin: auto;
+}
   
  

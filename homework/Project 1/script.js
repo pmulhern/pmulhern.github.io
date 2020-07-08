@@ -1,6 +1,8 @@
 var states = ["AK","AL","AR","AS","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MP","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","PR","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"]
 i = states.indexOf("AR")
 console.log(i)
+
+
 $(document).on("click", ".searches", function(event){
     event.preventDefault();   
     var states = ["AK","AL","AR","AS","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MP","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","PR","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"]
@@ -23,8 +25,14 @@ $(document).on("click", ".searches", function(event){
         var casesPer = "("+ (Math.trunc(((response[i].positive/population[i])*1000000)))+" per million)"
         var deaths = response[i].death
         var deathsPer = "("+ (Math.trunc(((response[i].death/population[i])*1000000)))+" per million)"
-        // var recoveredPer = "("+ (Math.trunc(((response[i].recovered/population[i])*1000000)))+" per million)"
+        var newCases = response[i].positiveIncrease
+
         
+        if(response[i].positiveIncrease === null){
+            newCasesPer = ""
+        } else {newCasesPer = "("+ (Math.trunc(((response[i].positiveIncrease/population[i])*1000000)))+" per million)"
+        }   
+
 
         if(response[i].recovered === null){
             recoveredPer = ""
@@ -34,6 +42,11 @@ $(document).on("click", ".searches", function(event){
         if(response[i].recovered === null){
             activePer = ""
         } else {activePer = "("+ (Math.trunc((((cases - recovered - deaths)/population[i])*1000000)))+" per million)"
+        }    
+
+        if(response[i].recovered === null){
+            activeIndicator = "Data Not Available"
+        } else {activeIndicator = (Math.trunc((((cases - recovered - deaths)/population[i])*1000000)))
         }    
 
         if(response[i].inIcuCurrently === null){
@@ -71,11 +84,10 @@ $(document).on("click", ".searches", function(event){
         } else {recovered = response[i].recovered
         }
 
-        // var hospIncrease = response[i].hospitalizedIncrease
         var positive = response[i].positive
         var pop = population[i]
         var displayState = stateTrans[i]
-        var newUrl = "https://www.google.com/search?rlz=1C1CHBF_enUS832US832&ei=rE7_XsXaCKGm_Qa__JKoAQ&q=" + displayState + "+active+covid+19+cases"
+        var newUrl =  `<a class="current ml-2 mt-2" href="https://www.google.com/search?rlz=1C1CHBF_enUS832US832&ei=rE7_XsXaCKGm_Qa__JKoAQ&q=${displayState}+active+covid+19+cases" target="_blank">Click Here for Latest State Trend</a>`
         $(this).attr("href", newUrl);
         
         console.log(cases)
@@ -100,13 +112,87 @@ $(document).on("click", ".searches", function(event){
         $("#active").empty().append(active);
         $("#casesPerc").empty().append(casesPer);
         $("#hospitalizations").empty().append(currentHosp);
-        // $("#prevHosp").empty().append(hospIncrease);
         $("#deaths").empty().append(deaths);
         $("#deathsPerc").empty().append(deathsPer);
         $("#icu").empty().append(inIcu);
         $("#ventilator").empty().append(ventilator);
         $("#activePerc").empty().append(activePer);
+        $("#link").empty().append(newUrl);
+        $("#newCases").empty().append(newCases);
+        $("#newCasesPerc").empty().append(newCasesPer);
+   
+
+        if(activeIndicator === "Data Not Available") {
+            $('#indicator').attr('src','NoInfo.jpg');
+        } else if(activeIndicator <= 1000) {
+            $('#indicator').attr('src','Good.jpg');
+        } else if (activeIndicator >= 1000 && activeIndicator <= 3000) { 
+            $('#indicator').attr('src','Caution.jpg');
+        } else $('#indicator').attr('src','Warning.jpg');
+
+
+        var analysis = {
+            green: "Green status indicates that " + displayState + " is reporting all critical data as it relates to COVID-19 tacking.  Two critical components determining the Destination Indicator are new reported cases and active cases per million. Both of these data points for " + displayState + " are favorable.  While the destination has received approval for travel, please conitue exercising safe practices as recommended by the CDC.",
+            yellow: "Yellow status indicates that " + displayState + " is reporting all critical data as it relates to COVID-19 tacking.  Two critical components determining the Destination Indicator are new reported cases and active cases per million. These data points for " + displayState + " show travelers should exercise caution.",
+            red: "Red status indicates that " + displayState + " is reporting all critical data as it relates to COVID-19 tacking.  Two critical components determining the Destination Indicator are new reported cases and active cases per million. These data points for " + displayState + " show this destination should be avoided if possible.",
+            orange: "Orange status indicates that " + displayState + " is NOT reporting all critical data as it relates to COVID-19 tacking.  Two critical components determining the Destination Indicator are new reported cases and active cases per million. Without these data points the current status is undeterminable and as such travel to " + displayState + " should be avoided if possible.",
+        }
+
+        if(activeIndicator === "Data Not Available") {
+            $('#analyis').empty().append(analysis.orange);
+        } else if(activeIndicator <= 1000) {
+            $('#analyis').empty().append(analysis.green);
+        } else if (activeIndicator >= 1000 && activeIndicator <= 3000) { 
+            $('#analyis').empty().append(analysis.yellow);
+        } else $('#analyis').empty().append(analysis.red);
+
+      
+
+        var queryURL = "https://gnews.io/api/v3/search?q=" + displayState +"-19&token=b99b9a647a217388e8e3d23e85e198ff";
+        $.ajax({
+           url: queryURL,
+           method: "GET"
+       }).then(function(response) {
+           console.log(response)
+           console.log(response.articles[0].description);
+           console.log(response.articles[0].source.name);
+           console.log(response.articles[0].url);
+           console.log(response.articles[0].image);
+
+           var headline = response.articles[0].title
+           var link = response.articles[0].url
+           var source = response.articles[0].source.name
+           var image = response.articles[0].image
+           var newsArray = response.articles
+
+           console.log(headline)
+           console.log(link)
+           console.log(image)
+           console.log(newsArray)
+
+
+           
+        $(".hide").attr("class", "row");   
         
+        for (let i = 0; i < newsArray.length; i++) {
+           var headline = response.articles[i].title
+           var link = response.articles[i].url
+           var source = response.articles[i].source.name
+           var image = response.articles[i].image
+
+           var appHeadline = `<a class="headline white-text" href="${link}" target="_blank">${headline}</a>`
+           var appSource =`<div class="source white-text"> Source: ${source} </div>`
+           var spacer = `<hr>`
+
+           $(`#headline${i}`).empty();
+           $(`#headline${i}`).append(appHeadline);
+           $(`#headline${i}`).append(appSource);
+           $(`#image${i}`).attr("src", image);
+           $(`#headline${i}`).append(spacer);
+            
+        }
+
+        });      
 });
 });
 
